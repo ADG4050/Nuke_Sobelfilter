@@ -1,0 +1,167 @@
+#! C:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+version 11.3 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1904" h="1001" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1241" stretch="1"/>
+            <splitter orientation="2">
+                <split size="559"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="394"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name C:/Users/ADUTTAGU/Desktop/.nk
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Read {
+ inputs 0
+ file_type tiff
+ file C:/Users/ADUTTAGU/Downloads/Tobago_HD(2).tif
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ origset true
+ name Read2
+ xpos -608
+ ypos -145
+}
+Constant {
+ inputs 0
+ channels rgb
+ name Constant1
+ xpos -449
+ ypos -23
+}
+MergeExpression {
+ inputs 0
+ name MergeExpression1
+ xpos 417
+ ypos 2
+}
+Read {
+ inputs 0
+ file_type png
+ file C:/Users/ADUTTAGU/Downloads/flamingo.png
+ format "640 471 0 0 640 471 1 "
+ origset true
+ name Read1
+ xpos -243
+ ypos -205
+}
+Expression {
+ expr0 r*0.21+g*0.71+b*0.07
+ expr1 r*0.21+g*0.71+b*0.07
+ expr2 r*0.21+g*0.71+b*0.07
+ name Expression3
+ xpos -243
+ ypos -71
+}
+set Nfdef5c00 [stack 0]
+Dot {
+ name Dot1
+ xpos 320
+ ypos -67
+}
+push $Nfdef5c00
+Blur {
+ size 4.6
+ name Blur2
+ xpos -243
+ ypos -4
+}
+set Nfdef5000 [stack 0]
+Matrix {
+ matrix {
+     {1 2 1}
+     {0 0 0}
+     {-1 -2 -1}
+   }
+ name Matrix2
+ xpos -302
+ ypos 61
+}
+Expression {
+ expr0 r*r
+ expr1 g*g
+ expr2 b*b
+ name Expression1
+ xpos -302
+ ypos 148
+}
+push $Nfdef5000
+Matrix {
+ matrix {
+     {1 0 -1}
+     {2 0 -2}
+     {1 0 -1}
+   }
+ name Matrix1
+ xpos -182
+ ypos 64
+}
+Expression {
+ expr0 r*r
+ expr1 g*g
+ expr2 b*b
+ name Expression2
+ xpos -182
+ ypos 148
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge1
+ xpos -237
+ ypos 222
+}
+Expression {
+ expr0 sqrt(r)
+ expr1 sqrt(g)
+ expr2 sqrt(b)
+ name Expression4
+ xpos 20
+ ypos 173
+}
+set Nfdef4c00 [stack 0]
+Dot {
+ name Dot2
+ xpos 320
+ ypos 177
+}
+push $Nfdef4c00
+Viewer {
+ frame 1
+ frame_range 1-100
+ name Viewer1
+ xpos 91
+ ypos 127
+}
